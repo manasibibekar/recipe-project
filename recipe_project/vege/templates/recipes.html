@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Homepage</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <h2>Add Recipe</h2>
+
+        <label>Recipe name</label>
+        <input type="text" name="recipe_name_html" required> <br><br>
+
+        <label>Recipe description</label>
+        <textarea name="recipe_description_html" required rows="4"> </textarea> <br><br>
+
+        <label>Recipe Image</label>
+        <input type="file" name="recipe_image_html"> <br><br>
+
+        <button type="submit">Add recipe</button>
+    </form>
+    
+</body>
+</html>
