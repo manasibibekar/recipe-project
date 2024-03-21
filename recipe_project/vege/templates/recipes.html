@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Homepage</title>
 </head>
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
+
 <body>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -22,6 +31,25 @@
 
         <button type="submit">Add recipe</button>
     </form>
-    
+<hr>
+
+<table>
+    <tr>
+        <th>#</th>
+        <th>Recipe Name</th>
+        <th>Recipe Description</th>
+        <th>Recipe Image</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for recipe in recipes %}
+    <tr>
+        <td>{{ recipe.recipe_name_model }}</td>
+        <td>{{ recipe.recipe_description_model }}</td>
+        <td>{{ recipe.recipe_image_model }}</td>
+    </tr>
+    {%endfor %}
+</table>
+        
 </body>
 </html>

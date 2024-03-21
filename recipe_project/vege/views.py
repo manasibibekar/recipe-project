@@ -18,4 +18,8 @@ def recipes(request):
 
         return redirect('/recipes/')
 
-    return render(request, 'recipes.html')
+    if request.method == "GET":
+        queryset = Recipe.objects.all()
+        print(queryset)
+        context = {"recipes": queryset}
+        return render(request, "recipes.html", context)
