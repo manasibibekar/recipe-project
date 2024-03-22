@@ -16,10 +16,15 @@ def recipes(request):
             recipe_image_model = recipe_image
         )
 
-        return redirect('')
+        return redirect('home_name') # in redirect you keep the name
 
     if request.method == "GET":
         queryset = Recipe.objects.all()
         print(queryset)
         context = {"recipes": queryset}
         return render(request, "recipes.html", context)
+    
+def delete_recipe(request, id):
+    recipe = Recipe.objects.get(id=id)
+    recipe.delete()
+    return redirect('home_name')
