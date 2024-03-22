@@ -44,9 +44,10 @@
 
     {% for recipe in recipes %}
     <tr>
+        <td>{{forloop.counter}}</td>
         <td>{{ recipe.recipe_name_model }}</td>
         <td>{{ recipe.recipe_description_model }}</td>
-        <td>{{ recipe.recipe_image_model }}</td>
+        <td><img src="media/{{ recipe.recipe_image_model }}"></td>
     </tr>
     {%endfor %}
 </table>

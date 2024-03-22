@@ -16,7 +16,7 @@ def recipes(request):
             recipe_image_model = recipe_image
         )
 
-        return redirect('/recipes/')
+        return redirect('')
 
     if request.method == "GET":
         queryset = Recipe.objects.all()
