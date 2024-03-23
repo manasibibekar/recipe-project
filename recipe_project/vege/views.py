@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import *
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 # set this to true after project is completed
 # git config --global http.sslVerify true
@@ -52,3 +54,29 @@ def update_recipe(request, id):
         recipe.save()
 
         return redirect('home_name')
+    
+def login(request):
+    return render(request, "login.html")
+
+def register(request):
+    if request.method == "GET":
+        return render(request, "register.html")
+    
+    elif request.method == "POST":
+        requested_username = request.POST.get('register_username_html')
+        existing_user = User.objects.filter(username=requested_username)
+
+        if existing_user.exists():
+            messages.error(request, "Username already taken. Try another one.")
+            # return redirect('register_name')
+        
+        else:
+            user = User.objects.create(
+                username = requested_username
+            )
+            user.set_password(request.POST.get('register_password_html')) # call this method to save encrypted password in db
+
+            user.save()
+            messages.success(request, "User created successfully.")
+
+        return redirect('register_name')
