@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Recipe</title>
+</head>
+
+<body>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Update Recipe</h2>
+
+        <label>Recipe name</label>
+        <input type="text" name="update_recipe_name_html" required value="{{recipe.recipe_name_model}}"> <br><br>
+
+        <label>Recipe description</label>
+        <textarea name="update_recipe_description_html" required rows="4"
+            value="{{recipe.recipe_description_model}}"> </textarea> <br><br>
+
+        {% if recipe.recipe_image_model %}
+        <label>Current Recipe Image:</label> <br>
+        <img src="{{ recipe.recipe_image_model.url }}" alt="Recipe Image" height="100"><br>
+        <label for="update_recipe_image_html">Change Recipe Image</label>
+        <input type="file" name="update_recipe_image_html" id="update_recipe_image_html"> <br><br>
+        {% else %}
+        <label for="update_recipe_image_html">Upload Recipe Image</label>
+        <input type="file" name="update_recipe_image_html" id="update_recipe_image_html"> <br><br>
+        {% endif %}
+
+        <button type="submit">Update recipe</button>
+
+    </form>
+</body>
+
+</html>

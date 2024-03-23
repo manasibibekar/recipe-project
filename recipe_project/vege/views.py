@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
+from django.shortcuts import get_object_or_404
 
 def recipes(request):
     if request.method == "POST":
@@ -28,3 +29,19 @@ def delete_recipe(request, id):
     recipe = Recipe.objects.get(id=id)
     recipe.delete()
     return redirect('home_name')
+
+def update_recipe(request, id):
+    if request.method == "GET":
+        recipe = Recipe.objects.get(id=id)
+        context = {"recipe": recipe}
+        return render(request, "update.html", context)
+    
+    if request.method == "POST":
+        recipe = get_object_or_404(Recipe, id=id)
+        recipe.recipe_name_model = request.POST.get('update_recipe_name_html')
+        recipe.recipe_description_model = request.POST.get('update_recipe_description_html')
+        recipe.recipe_image_model = request.FILES.get('update_recipe_image_html')
+
+        recipe.save()
+
+        return redirect('home_name')

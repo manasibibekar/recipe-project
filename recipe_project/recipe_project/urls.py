@@ -24,7 +24,8 @@ from django.conf import settings
 urlpatterns = [
     path("admin/", admin.site.urls), 
     path("", recipes, name="home_name"),
-    path("delete/<id>/", delete_recipe, name='delete_recipe_name')
+    path("delete/<id>/", delete_recipe, name='delete_recipe_name'),
+    path("update/<id>", update_recipe, name='update_recipe_name')
 ]
 
 if settings.DEBUG:

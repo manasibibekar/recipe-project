@@ -48,7 +48,7 @@
         <td>{{ recipe.recipe_name_model }}</td>
         <td>{{ recipe.recipe_description_model }}</td>
         <td><img src="media/{{ recipe.recipe_image_model }}" style="height: 100px;"></td>
-        <td><a href="delete/{{recipe.id}}/">Delete</a></td>
+        <td><a href="delete/{{recipe.id}}/">Delete</a> <br> <a href="update/{{recipe.id}}">Update</a></td>
     </tr>
     {%endfor %}
 </table>
