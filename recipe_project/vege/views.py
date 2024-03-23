@@ -17,11 +17,15 @@ def recipes(request):
             recipe_image_model = recipe_image
         )
 
-        return redirect('home_name') # in redirect you keep the name
+        return redirect('home_name') # in redirect you keep the name of url
 
     if request.method == "GET":
-        queryset = Recipe.objects.all()
-        print(queryset)
+
+        if request.GET.get('search_recipe_html'):
+            queryset = Recipe.objects.all().filter(recipe_name_model__icontains = request.GET.get('search_recipe_html'))
+        else:
+            queryset = Recipe.objects.all()
+
         context = {"recipes": queryset}
         return render(request, "recipes.html", context)
     

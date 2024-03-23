@@ -30,16 +30,36 @@
         <input type="file" name="recipe_image_html"> <br><br>
 
         <button type="submit">Add recipe</button>
-    </form>
-<hr>
+    </form> <br><br>
+    <hr>
+    
+    <form>
+        <label>
+            <h2>Search Food</h2>
+        </label>
+        <input type="text" name="search_recipe_html" required> <br><br>
+    
+        <button type="submit">Search</button> <br>
+    </form> <br><br>
+    <hr>
 
 <table>
     <tr>
-        <th>#</th>
-        <th>Recipe Name</th>
-        <th>Recipe Description</th>
-        <th>Recipe Image</th>
-        <th>Actions</th>
+        <th>
+            <h4>##</h4>
+        </th>
+        <th>
+            <h4>Recipe Name</h4>
+        </th>
+        <th>
+            <h4>Recipe Description</h4>
+        </th>
+        <th>
+            <h4>Recipe Image</h4>
+        </th>
+        <th>
+            <h4>Actions</h4>
+        </th>
     </tr>
 
     {% for recipe in recipes %}
