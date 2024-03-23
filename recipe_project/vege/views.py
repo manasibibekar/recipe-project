@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.shortcuts import get_object_or_404
 
+# set this to true after project is completed
+# git config --global http.sslVerify true
+
 def recipes(request):
     if request.method == "POST":
         data = request.POST
