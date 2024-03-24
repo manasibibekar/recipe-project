@@ -3,11 +3,13 @@ from .models import *
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 
 # set this to true after project is completed
 # git config --global http.sslVerify true
 
+@login_required(login_url='/login/')
 def recipes(request):
     if request.method == "POST":
         data = request.POST
@@ -34,12 +36,14 @@ def recipes(request):
 
         context = {"recipes": queryset}
         return render(request, "recipes.html", context)
-    
+
+@login_required(login_url='/login/')    
 def delete_recipe(request, id):
     recipe = Recipe.objects.get(id=id)
     recipe.delete()
     return redirect('home_name')
 
+@login_required(login_url='/login/')
 def update_recipe(request, id):
     if request.method == "GET":
         recipe = Recipe.objects.get(id=id)
@@ -104,3 +108,7 @@ def register(request):
             messages.success(request, f"{user.username} logged in successfully.")
 
             return redirect('home_name')
+        
+def logout_page(request):
+    logout(request)
+    return redirect('login_name')
