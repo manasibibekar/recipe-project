@@ -3,7 +3,7 @@ from .models import *
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 
 # set this to true after project is completed
 # git config --global http.sslVerify true
@@ -57,7 +57,28 @@ def update_recipe(request, id):
         return redirect('home_name')
     
 def login_page(request): # rename from login to login_page because django built in function named login
-    return render(request, "login.html")
+    if request.method == "GET":
+        return render(request, 'login.html')
+    
+    elif request.method == "POST":
+        requested_username = request.POST.get('login_username_html')
+        requested_password = request.POST.get('login_password_html')
+
+        user = User.objects.filter(username=requested_username)
+
+        if not user.exists():
+            messages.error(request, "Invalid username.")
+            return redirect('login_name')
+        
+        user = authenticate(username=requested_username, password=requested_password)
+
+        if user == None:
+            messages.error(request, 'Invalid password.')
+            return redirect('login_name')
+        else:
+            login(request, user)
+            messages.success(request, f"{user.username} logged in successfully.")
+            return redirect('home_name')
 
 def register(request):
     if request.method == "GET":
@@ -81,5 +102,5 @@ def register(request):
 
             login(request, user)
             messages.success(request, f"{user.username} logged in successfully.")
-            
+
             return redirect('home_name')
