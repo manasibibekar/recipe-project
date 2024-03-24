@@ -3,6 +3,7 @@ from .models import *
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import login
 
 # set this to true after project is completed
 # git config --global http.sslVerify true
@@ -55,7 +56,7 @@ def update_recipe(request, id):
 
         return redirect('home_name')
     
-def login(request):
+def login_page(request): # rename from login to login_page because django built in function named login
     return render(request, "login.html")
 
 def register(request):
@@ -68,7 +69,7 @@ def register(request):
 
         if existing_user.exists():
             messages.error(request, "Username already taken. Try another one.")
-            # return redirect('register_name')
+            return redirect('register_name')
         
         else:
             user = User.objects.create(
@@ -77,6 +78,8 @@ def register(request):
             user.set_password(request.POST.get('register_password_html')) # call this method to save encrypted password in db
 
             user.save()
-            messages.success(request, "User created successfully.")
 
-        return redirect('register_name')
+            login(request, user)
+            messages.success(request, f"{user.username} logged in successfully.")
+            
+            return redirect('home_name')
